@@ -1,25 +1,28 @@
-#include <TimeLib.h>
-#include <Time.h>
+// variables
+int led = 2;
+int n ;
 
 void setup() {
+  pinMode(led, OUTPUT);
   Serial.begin(9600);
-  setTime(12, 0, 0, 1, 1, 11);
+  n = 1000;
 }
 
 void loop() {
-  Serial.print('sending a message');
-  Serial.print(hour());
-  printDigits(minute());
-  
-  Serial.println();
-  delay(1000);
-}
-
-void printDigits(int digits) {
-  Serial.print(':');
-  if (digits < 10) {
-    Serial.print('0');
+  if (Serial.available()) {
+    char val = Serial.read();
+    
+    if (val == '1') {
+      Serial.print('fast\n');
+      n = 200;
+    } else {
+      n = 1000;
+    }
+    
   }
   
-  Serial.print(digits);
+  digitalWrite(led, HIGH);
+  delay(n);
+  digitalWrite(led, LOW);
+  delay(n);
 }
