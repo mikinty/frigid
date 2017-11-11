@@ -1,9 +1,11 @@
 // variables
 int led = 2;
+int reader = 7;
 int n ;
 
 void setup() {
   pinMode(led, OUTPUT);
+  pinMode(7, INPUT);
   Serial.begin(9600);
   n = 1000;
 }
@@ -18,7 +20,10 @@ void loop() {
     } else {
       n = 1000;
     }
-    
+  }
+  
+  if(digitalRead(reader) == HIGH) {
+    Serial.print('COOL!\n');
   }
   
   digitalWrite(led, HIGH);
