@@ -31,14 +31,14 @@ right = 100
 
 def dropItem(box):
 
-    if(box==1):
+    if(box==0):
+        arduinoMainMovement.write(b'0')
+    elif(box==1):
         arduinoMainMovement.write(b'1')
-    elif(box==2):
-       arduinoMainMovement.write(b'2')
-    elif box==3:
+    elif box==2:
+        arduinoMainMovement.write(b'2')
+    elif box==3: 
         arduinoMainMovement.write(b'3')
-    elif box==4:
-       arduinoMainMovement.write(b'4')
     #drop box 
 
 def identifyImage():
