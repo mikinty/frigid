@@ -19,8 +19,27 @@ params = urllib.parse.urlencode({
 })
 
 arduinoSerialData = serial.Serial('/dev/ttyACM2', 9600)
+arduinoMainMovement = serial.Serial('/dev/ttyACM1', 9600)
 
 dic = ["bottle", "apple", "orange", "banana", "chips", "carton", "meat"]
+boxes = [None, None, None, None]
+
+front = 0
+back = 100
+left = 0
+right = 100
+
+def dropItem(box):
+
+    if(box==1):
+        arduinoMainMovement.write(b'1')
+    elif(box==2):
+       arduinoMainMovement.write(b'2')
+    elif box==3:
+        arduinoMainMovement.write(b'3')
+    elif box==4:
+       arduinoMainMovement.write(b'4')
+    #drop box 
 
 def identifyImage():
     req_body = open(filename, 'rb').read()
@@ -34,8 +53,13 @@ def identifyImage():
         tags = parsed["description"]["tags"]
         for i in range(len(tags)):
             #print(tags[i])
-            if tags[i] in dic:
+            if tags[i] in dici:
                 print(tags[i])
+                for j in range(4):
+                    if boxes[j]==None:
+                        boxes[j]=tags[i]
+                        #TODO: set color of box j to right color
+                        dropItem(j)
                 break
         else:
             print("Couldn't identify image. Closest match: ", tags[0])
