@@ -18,8 +18,8 @@ params = urllib.parse.urlencode({
     'language': 'en',
 })
 
-arduinoSerialData = serial.Serial('/dev/ttyACM2', 9600)
-arduinoMainMovement = serial.Serial('/dev/ttyACM1', 9600)
+#arduinoSerialData = serial.Serial('/dev/ttyACM2', 9600)
+arduinoMainMovement = serial.Serial('/dev/ttyACM0', 9600)
 
 dic = ["bottle", "apple", "orange", "banana", "chips", "carton", "meat"]
 boxes = [None, None, None, None]
@@ -71,10 +71,10 @@ def identifyImage():
 
 def m():
     while(1):
-        if (arduinoSerialData.inWaiting() > 0):
-            arduinoSerialData.readline()
-            subprocess.check_output(["raspistill", "-o", "img.jpg"])
-            identifyImage()
+        #if (arduinoSerialData.inWaiting() > 0):
+            #arduinoSerialData.readline()
+        subprocess.check_output(["raspistill", "-o", "img.jpg"])
+        identifyImage()
 
 
 m()
